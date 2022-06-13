@@ -1,9 +1,24 @@
 <template>
 	<v-main>
+		<v-app-bar app elevation="0" color="white" height="85px">
+			<v-container>
+				<v-layout wrap row align-center>
+					<v-btn text fab large class="mr-5" @click="alvo = 'inicio', $vuetify.goTo(target, options)">
+						<v-img src="@/assets/logo.png" max-width="55px" class="text-center"></v-img>
+					</v-btn>
+					<v-btn text rounded @click="alvo = 'finais', $vuetify.goTo(target, options)">Finais felizes</v-btn>
+					<v-btn text rounded @click="alvo = 'adotar', $vuetify.goTo(target, options)">Adote aqui</v-btn>
+					<v-btn text rounded @click="alvo = 'ajudar', $vuetify.goTo(target, options)">Como ajudar</v-btn>
+					<v-btn text rounded @click="alvo = 'sobre', $vuetify.goTo(target, options)">Quem somos</v-btn>
+					<v-spacer />
+				</v-layout>
+			</v-container>
+		</v-app-bar>
 		<v-container>
 			<v-row>
 				<v-col cols="6">
 					<v-card flat color="transparent" height="80vh">
+						<span ref="inicio" />
 						<v-row align-content="space-between" class="full-height">
 							<v-col cols="12">
 								<v-row>
@@ -41,11 +56,18 @@
 					</v-card>
 				</v-col>
 				<v-col cols="12" class="text-center">
-					<v-btn height="40" color="secondary" elevation="0" class="rounded-t-pill">
+					<v-btn
+						height="40"
+						color="secondary"
+						elevation="0"
+						class="rounded-t-pill"
+						@click="alvo = 'finais', $vuetify.goTo(target, options)"
+					>
 						<v-icon size="30" color="black" class="font-weight-bold mb-n3">mdi-chevron-down</v-icon>
 					</v-btn>
 				</v-col>
 				<v-col cols="5">
+					<span ref="finais" />
 					<v-card flat color="transparent" height="87vh">
 						<v-row align-content="space-between" class="full-height">
 							<v-col cols="12">
@@ -172,6 +194,7 @@
 					</v-row>
 				</v-col>
 				<v-col cols="5">
+					<span ref="adotar" />
 					<v-card flat color="transparent" height="87vh" class="pl-5">
 						<v-row>
 							<v-col cols="12" class="title-card font-weight-bold">Estamos esperando por um lar 🐶</v-col>
@@ -193,6 +216,7 @@
 					</v-card>
 				</v-col>
 				<v-col cols="12">
+					<span ref="ajudar" />
 					<v-card flat color="transparent" height="87vh">
 						<v-row class="py-5">
 							<v-col cols="10" class="title-card font-weight-bold">Todos por um objetivo 🎯</v-col>
@@ -233,7 +257,8 @@
 						</v-row>
 					</v-card>
 				</v-col>
-				<v-col cols="12" ref="about">
+				<v-col cols="12">
+					<span ref="sobre" />
 					<v-card flat color="transparent" height="87vh">
 						<v-row class="text-center full-height" justify="center" align-content="center">
 							<v-col cols="8" class="title-card font-weight-bold">Quem somos ?</v-col>
@@ -258,6 +283,18 @@
 <script>
 export default {
 	name: "Home",
+	data: () => ({
+		alvo: "",
+	}),
+	computed: {
+		target() {
+			console.log(this.alvo);
+			return this.$refs[this.alvo];
+		},
+		options() {
+			return { duration: 1500 };
+		},
+	},
 };
 </script>
 
